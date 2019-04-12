@@ -7,15 +7,21 @@ describe('games helpers', () => {
 
     describe('get test', () => {
         it('should get all the games in the games table', async () => {
-            const mockGame = {
-                title: "game",
-                genre: "adventure",
-            }
-            await games.insert(mockGame);
-            
             const gamesArr = await games.getGames();
+            expect(Array.isArray(gamesArr)).toBe(true)
+        })
+    })
 
-            expect(gamesArr).toHaveLength(1)
+    describe('insert tests', () => {
+        it('should insert a new game and return it', async () => {
+            const mockGame = {
+                title: "Another world",
+                genre: "Adventure"
+            }
+            const newGame = await games.insert(mockGame);
+            expect(newGame.title).toBe("Another world");
+            expect(newGame.genre).toBe("Adventure");
+            expect(newGame.releaseYear).toBe(null);
         })
     })
 })
